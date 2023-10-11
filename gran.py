@@ -36,10 +36,10 @@ async def on_message(message):
     if "fuck" in message.content:
         await message.channel.send("No swearing!")
 
-        audio = gtts.gTTS("Dont say that disgusting word bloody rascal! i thought i raised you right!")
-        audio.save("swearingAudio.mp3")
+        audio = gtts.gTTS("Dont say that disgusting word bloody rascal! i thought i raised you right!", lang='en', tld='com.au')
+        audio.save("noDontSayIt.mp3")
 
-        await message.channel.send(file=discord.File('swearingAudio.mp3'))
+        await message.channel.send(file=discord.File('noDontSayIt.mp3'))
 
     if "granny say" in message.content:
         whatchuSay = message.content
