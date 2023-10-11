@@ -1,0 +1,5 @@
+1.have a seperate script for converting text to speech
+2.a new script to fetch the discord prompt and storing it in a txt file called input.txt
+3.then a new script to call the open ai chatgpt api and uses the prompt from the txt file by read. 
+4.as soon as we get an output from gpt we store it in a txt file called output.txt
+5.as soon as we're done with that we use the text to speech script to convert the output from text to speech
