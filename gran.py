@@ -6,9 +6,14 @@ import asyncio
 import gtts
 import vlc
 import time
+import openai
 
 
 TOKEN = ""
+
+openai.api_key = ""
+
+messages = [{"role": "kind grandma", "content": "You're a very kind grandma. The user you interact with is your grandson. You're very old fashioned and rude to ur grandson but you love him very much"},]
 
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
@@ -28,7 +33,7 @@ async def bully(interaction: discord.Interaction):
     
 @bot.tree.command(name="imbored")
 async def imBored(interaction: discord.Interaction):
-    await interaction.response.send_message("It's working bozo", file=discord.File('try1.mp3'))
+    await interaction.response.send_message(file=discord.File('try1.mp3'))
 
 @bot.event
 async def on_message(message):
@@ -54,9 +59,25 @@ async def on_message(message):
             await message.channel.send("Im not your servant boy hmph watch it")    
             return
 
-        audio = gtts.gTTS(audioText)
+        audio = gtts.gTTS(audioText, lang='en', tld='com.au')
         audio.save("sayAudio.mp3")
         await message.channel.send(file=discord.File('sayAudio.mp3'))
+
+    gptSay = "granny im curious"
+    if gptSay in message.content:
+        whatduSay = message.content
+        messages.append({"role": "system", "content" : whatduSay},
+                        )
+        chat = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo", messages=messages
+        )
+
+        reply = chat.choices[0].whatdusay.content
+        await message.channel.send(f"oh {reply}")
+
+        messages.append({"role": "granny", "content": reply})    
+
+
 
 
 bot.run(TOKEN)
